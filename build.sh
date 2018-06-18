@@ -1,14 +1,8 @@
-#Assembly
-nasm -f bin -o obj/bootloader/boot.bin boot/bootloader/bootloader.asm
-nasm -f bin -o obj/stage2/stage2.bin boot/stage2/stage2.asm
-nasm -f bin -o obj/staticindex/index.bin boot/staticindex/index.asm
-
 #C
 nasm -felf32 kernel/boot/kernel.asm -o obj/boot.o
 gcc -m32 -c kernel/kernel/string.c -I kernel/include -o obj/string.o
 gcc -m32 -c kernel/kernel/TTY.c -I kernel/include -o obj/TTY.o
 gcc -m32 -c kernel/kernel/stdio.c -I kernel/include -o obj/stdio.o
-gcc -m32 -c kernel/kernel/GDT.c -I kernel/include -o obj/GDT.o
 gcc -m32 -c kernel/kernel/system.c -I kernel/include -o obj/system.o
 
 
