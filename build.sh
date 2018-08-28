@@ -1,13 +1,8 @@
 #C
 nasm -felf32 kernel/boot/kernel.asm -o obj/boot.o
-gcc -m32 -c kernel/kernel/string.c -I kernel/include -o obj/string.o
-gcc -m32 -c kernel/kernel/TTY.c -I kernel/include -o obj/TTY.o
-gcc -m32 -c kernel/kernel/stdio.c -I kernel/include -o obj/stdio.o
-gcc -m32 -c kernel/kernel/system.c -I kernel/include -o obj/system.o
-
 
 gcc -m32 -c kernel/kernel/kernel.c -I kernel/include -o obj/kernelc.o
-ld -m elf_i386 -T kernel/link.ld -o kernel.bin obj/boot.o obj/string.o obj/TTY.o obj/stdio.o obj/system.o obj/kernelc.o 
+ld -m elf_i386 -T kernel/link.ld -o kernel.bin obj/boot.o obj/kernelc.o 
 
 #Linking
 
