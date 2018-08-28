@@ -1,19 +1,35 @@
-#include <kernel/types.h>
-#include <kernel/VGA.h>
-#include <kernel/string.h>
-#include <kernel/TTY.h>
-#include <kernel/stdio.h>
+#include <types.h>
+#include <TTY.h>
+#include <GDT.h>
+#include <Multiboot.h>
 
-#define SUCCESSCOLOR 0xAF
-#define FAILCOLOR 0xCF
+extern char* CPUInfo();
+struct multibootHeader mb;
+char l[32];
 
-void kernel_main() 
+void DisplayHardwareInfo();
+
+void CKernelFunction(struct multibootHeader* mbheader)
 {
-	terminal_initialize();
-	drawWindow();
-	terminal_writestring("LilakOS v0.01\n");
-    printf("Hello, World!,\nThe leter C: %c\nThe letter D: %c\nThe sentence \"Hello, World!\": %s\n", 'C', 'D', "Hello, World!");
-    printf("The number 512 in base 10: %i\n", 512);
-    printf("The number 512 in base 16: %x\n", 512);
-    printf("printf(char* format, ...);");
+    mb = *mbheader;
+    TTYClear();
+    TTYWriteString("Lilak OS v1.0\n");
+    char* blname = (char*) mb.BootloaderName;
+    TTYWriteString("Booted from ");
+    TTYWriteString(blname);
+    TTYPutc('\n');
+    StandardGlobalDescriptorSetup();
+    TTYWriteString("GDT Installed\n");
+    DisplayHardwareInfo();
+    for(;;);
+}
+
+void DisplayHardwareInfo(){
+    TTYWriteString("Hardware info:\n     CPU: ");
+    CPUInfo();
+    TTYColor = 0x0F;
+    TTYWriteString("\n     RAM size: 0x");
+    itoax(mb.HighMem, 16, l);
+    TTYWriteString(l);
+    TTYWriteString(" bytes");
 }
