@@ -1,0 +1,35 @@
+#include <types.h>
+
+struct multibootHeader{
+    u32 Flags;
+    u32 LowMem;
+    u32 HighMem;
+    u32 BootDevice;
+    u32 CmdLine;
+    u32 ModsCount;
+    u32 ModsAddr;
+    u32 Syms;
+    u32 Syms2;
+    u32 Syms3;
+    u32 MMapLength;
+    u32 MMapAddr;
+    u32 DrivesLength;
+    u32 DrivesAddr;
+    u32 ConfigTable;
+    u32 BootloaderName;
+    u32 APMTable;
+    u32 VBRControlInfo;
+    u32 VBEModeInfo;
+    u32 VBEMode;
+    u32 VBEInterfaceSeg;
+    u32 VBEInterfaceOff;
+    u32 VBEInterfaceLen;
+    u32 FrameBufferAddr;
+    u32 FrameBufferPitch;
+    u32 FrameBufferWidth;
+    u32 FrameBufferHeight;
+    u32 FrameBufferBPP;
+    u32 FrameBufferType;
+    u32 ColorInfo;
+    u32 ColorInfo2;
+};
