@@ -1,19 +1,18 @@
 section .bss
-align 16
-stack_bottom:
-resb 32768
-stack_top:
- 
+align 0x10
+stackbottom:
+resb 0x4000
+stacktop:
+
 section .text
 global _start:function (_start.end - _start)
 _start:
-	cli
-	mov esp, stack_top
-
-	extern kernel_main
-	call kernel_main
-
-	cli
-.hang:	hlt
-	jmp .hang
+    pop eax
+    mov esp, 0x90000
+    push eax
+    extern CKernelFunction
+    call CKernelFunction
+    jmp $
 .end:
+    hlt
+    jmp .end
